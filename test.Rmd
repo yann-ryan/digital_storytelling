@@ -1,0 +1,16 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(sf)
+library(tidyverse)
+```
+
+```{r}
+mtcars %>% rownames_to_column() %>%
+  ggplot() + geom_point(aes(mpg, qsec))
+```
+
