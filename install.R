@@ -1,1 +1,2 @@
-install.packages(c("tidyverse", "sf"))
+install.packages(c("tidyverse", "sf", "osmdata"))
+

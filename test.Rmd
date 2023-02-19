@@ -13,4 +13,25 @@ library(tidyverse)
 mtcars %>% rownames_to_column() %>%
   ggplot() + geom_point(aes(mpg, qsec))
 ```
+```{r}
+library(osmdata)
+
+install.packages('ggmap')
+library(ggmap)
+```
+
+```{r}
+q <- opq(bbox = 'amsterdam') %>%
+    add_osm_feature(key = 'amenity', value = 'pub')
+
+pubs_sf = q%>%
+    osmdata_sf ()
+
+pubs_sf = pubs_sf %>% sf::st_as_sf()
+```
+
+```{r}
+ggplot() + geom_sf(data = pubs_sf$osm_points)
+```
+
 
