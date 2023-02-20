@@ -1,2 +1,2 @@
-install.packages(c("ggplot","dplyr", "sf", "osmdata"))
+install.packages(c("ggplot2","dplyr", "sf", "osmdata", "magrittr"))
 
