@@ -7,31 +7,35 @@ output: html_notebook
 ```{r}
 library(sf)
 library(tidyverse)
-```
-
-```{r}
-mtcars %>% rownames_to_column() %>%
-  ggplot() + geom_point(aes(mpg, qsec))
-```
-```{r}
 library(osmdata)
-
-install.packages('ggmap')
-library(ggmap)
 ```
 
-```{r}
-q <- opq(bbox = 'amsterdam') %>%
-    add_osm_feature(key = 'amenity', value = 'pub')
 
-pubs_sf = q%>%
+```{r}
+
+bars = opq(bbox = c(4.475037,52.148902,4.513608,52.168211)) %>%
+    add_osm_feature(key = 'amenity', value = 'pub')%>%
     osmdata_sf ()
 
-pubs_sf = pubs_sf %>% sf::st_as_sf()
+streets = opq(bbox = c(4.475037,52.148902,4.513608,52.168211)) %>%
+    add_osm_feature(key = 'highway', value = 'residential')%>%
+    osmdata_sf ()
+
+canals = opq(bbox =  c(4.475037,52.148902,4.513608,52.168211)) %>%
+    add_osm_feature(key = 'waterway', value = 'canal')%>%
+    osmdata_sf ()
+
+
+
 ```
 
 ```{r}
-ggplot() + geom_sf(data = pubs_sf$osm_points)
+ggplot() + 
+  geom_sf(data = streets$osm_lines) + 
+  geom_sf(data = canals$osm_lines, color = 'lightblue', lwd = 2) + 
+  geom_sf(data = bars$osm_points, color = 'red') + 
+  coord_sf(xlim = c(4.475037,4.513608), ylim = c(52.148902,52.168211)) + 
+  theme_void()
 ```
 
 
